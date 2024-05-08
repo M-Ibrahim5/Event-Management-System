@@ -46,6 +46,16 @@ The current event management landscape lacks a unified platform that caters to t
 
 ---
 
+## Technologies Used
+
+EventHub is built using the following technologies and frameworks:
+
+- **Laravel:** The backend of EventHub is developed using the Laravel PHP framework.
+- **Blade Templating Engine:** Laravel Blade is used for the frontend views, providing a powerful templating engine for generating HTML.
+- **MySQL:** EventHub utilizes MySQL as the relational database management system for storing data.
+
+---
+
 ## How to Run 
 
 1. **Clone the Repository:**  
