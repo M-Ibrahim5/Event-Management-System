@@ -1,0 +1,239 @@
+
+.eventImage{
+    width: 60px;
+    height: 60px;
+}
+
+
+.themepic{
+    max-width: 1200px;
+    padding-left: 100px;
+}
+
+.eventButton{
+    bottom: 40px;
+    width: 110px;
+    margin-right: 20px;
+    text-align: center;
+}
+
+.eventButton a{
+    position: relative;
+    margin-top: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width:110px;
+    height: 110px;
+    background: transparent;
+    border: 2px solid #081b29;
+    border-radius: 50% ;
+    font-size: 20px;
+    color: #081b29;
+    text-decoration: none;
+    z-index: 1;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.eventButton a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: orange;
+    /*filter: grayscale(100%) brightness(0.9) invert(1.0) sepia(0) hue-rotate(0deg) saturate(200%);*/
+    z-index: -1;
+    transition: .5s;
+}
+
+.eventButton a:hover::before {
+    width: 100%
+}
+
+.allEvent{
+    display: inline-flex;
+}
+
+.navbar-brand{
+    font-weight: bold;
+}
+
+.eventInfo{
+    padding-left: 100px;
+    display: inline-flex;
+}
+
+.eventInfo2{
+    width: 600px;
+}
+
+#ticket{
+    height: 190px;
+    width: 300px;
+    margin-top: 50px;
+}
+
+/*organization*/
+
+#activenavbar{
+    padding: 5px;
+}
+
+/* baem */
+.product-action-1 {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all .3s ease 0s;
+    transition: all .3s ease 0s;
+    z-index: 9;
+  }
+  
+  .product-action-1.show {
+    visibility: visible;
+    opacity: 1;
+    bottom: 26px;
+    left: unset;
+    right: 20px;
+    top: unset;
+    -webkit-transform: none;
+            transform: none;
+  }
+  
+  .product-action-1 button, .action-btn {
+    width: 40px;
+    height: 40px;
+    line-height: 44px;
+    border-radius: 50px;
+    background-color: #fff;
+    text-align: center;
+    margin-right: 3px;
+    position: relative;
+    display: inline-block;
+    border: none;
+    margin-top: 50px;
+  }
+  
+  .product-action-1 button.small, .action-btn.small {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+  
+  .product-action-1 button.small i, .action-btn.small i {
+    font-size: 12px;
+  }
+  
+  .product-action-1 button:after, .action-btn:after {
+    bottom: 100%;
+    left: 50%;
+    position: absolute;
+    white-space: nowrap;
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 7px 10px;
+    color: #ffffff;
+    background-color: #F15412;
+    content: attr(aria-label);
+    line-height: 1.3;
+    -webkit-transition-delay: .1s;
+    transition-delay: .1s;
+    -webkit-box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24), -webkit-transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: translateX(-50%) translateY(0px);
+    transform: translateX(-50%) translateY(0px);
+  }
+  
+  .product-action-1 button:before, .action-btn:before {
+    content: '';
+    position: absolute;
+    left: calc(50% - 7px);
+    bottom: 100%;
+    -webkit-transition-delay: .1s;
+    transition-delay: .1s;
+    border: 7px solid transparent;
+    border-top-color: #F15412;
+    z-index: 9;
+    margin-bottom: -13px;
+    transition-delay: .1s;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24), -webkit-transform 0.3s cubic-bezier(0.71, 1.7, 0.77, 1.24);
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  .product-action-1 button:last-child, .action-btn:last-child {
+    margin-right: 0;
+  }
+  
+  .product-action-1 button i, .action-btn i {
+    font-size: 15px;
+    margin-left: 1px;
+  }
+  
+  .product-action-1 button:hover, .action-btn:hover {
+    background-color: #F15412;
+    border: 1px solid transparent;
+  }
+  
+  .product-action-1 button:hover:after, .action-btn:hover:after {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateX(-50%) translateY(-8px);
+    transform: translateX(-50%) translateY(-8px);
+  }
+  
+  .product-action-1 button:hover:before, .action-btn:hover:before {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+  
+  .product-action-1 button:hover i, .action-btn:hover i {
+    color: #fff;
+  }
+
+  .header-action-icon-2 {
+    /* text-align: center; */ /* Center the icon */
+    position: relative; /* Enable positioning of child elements */
+    margin-right: 3px;;
+}
+ 
+.header-action-icon-2 > a {
+    font-size: 30px;
+    color: #333;
+    line-height: 1;
+    display: inline-block;
+    position: relative;
+}
+ 
+.header-action-icon-2 > a img {
+    width: 100%;
+    max-width: 25px;
+    opacity: 0.8;
+    margin-top:5px;
+}
+ 
+.header-action-icon-2 > a span.pro-count {
+    position: absolute;
+    top: 0;
+    margin:0px 0px 5px 10px;
+    right: -6px;
+    background-color: red; /* Set background color as needed */
+    color: white; /* Set text color as needed */
+    border-radius: 50%; /* Optional: Round the corners for a circle */
+    padding: 3.5px ; /* Optional: Adjust padding as needed */
+    font-size: 10px; /* Set font size as needed */
+}
+
+/* baem */
