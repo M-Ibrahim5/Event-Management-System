@@ -94,30 +94,30 @@ The current event management landscape lacks a unified platform that caters to t
    ## Here are some screenshot of the project
 ### A. Atendee
 1. **Login & Register**
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2482f0fd-4dcc-44f0-b276-1317b28d9042)
 
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/362d1d6c-9454-4273-9c82-fd1f54948709)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2482f0fd-4dcc-44f0-b276-1317b28d9042)
 
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/362d1d6c-9454-4273-9c82-fd1f54948709)
 
 2. **Homepage**
 
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/c6f2202e-d2ba-4dcf-b5c1-7ee481b193c2)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/c6f2202e-d2ba-4dcf-b5c1-7ee481b193c2)
 
 3. **Category Page**
 
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/4f4f3de7-52e9-4679-b956-b0f18be154fe)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/4f4f3de7-52e9-4679-b956-b0f18be154fe)
 
 4. **Search Result Page**
 
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0ad8e8d3-3645-41ad-9fb9-f8d29fbd8292)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0ad8e8d3-3645-41ad-9fb9-f8d29fbd8292)
 
 5. **Event Details Page**
 
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2a74c74e-b76b-46b6-845f-4563c77a446a)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2a74c74e-b76b-46b6-845f-4563c77a446a)
 
 6. **Payment Page**
 
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/21b46c05-f313-4629-bf17-70d89d091d0e)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/21b46c05-f313-4629-bf17-70d89d091d0e)
 
 7. **Favourite List Page**
     ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/172597d1-76d0-4a93-ac5f-7249ebee5c7f)
@@ -153,8 +153,9 @@ The current event management landscape lacks a unified platform that caters to t
    ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/5aa235ef-b264-4258-b888-ea5a6d0305ab)
 
 4. **Manage Sponsorship**
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/d99739f1-c80e-4a98-abba-e6fd5e27fd3d)
-![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/01e41d4e-b205-4203-bf7e-a6fd3b0c01ae)
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/d99739f1-c80e-4a98-abba-e6fd5e27fd3d)
+
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/01e41d4e-b205-4203-bf7e-a6fd3b0c01ae)
 
 5. **Manage Sponsorship Request**
    ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/055fd207-3cd0-4062-b5d0-725ab895321e)
