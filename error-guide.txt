@@ -1,0 +1,32 @@
+log file error
+1. delete log file:
+del storage\logs\laravel.log
+
+2. icacls "C:\Users\Acer\Desktop\code\coding\sem7\web app\assignment\present\EventHub\EventHub" /grant:r Users:F /T
+
+-------------------------------------
+
+3. Grant Permissions to the Storage Folder:
+
+Run the following command in your Laravel project directory:
+icacls storage /grant:r "IIS_IUSRS:(OI)(CI)RX" /T
+
+2. run php artisan config:clear
+
+3. run php artisan config:cache
+
+
+upload imej
+1. change in filesystem.php
+
+'public' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+2. then run php artisan storage:link
+
+3. then run php artisan config:cache
+
