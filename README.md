@@ -85,3 +85,79 @@ The current event management landscape lacks a unified platform that caters to t
 
 7. **Access the Application:**  
    Once the application is served, you can access EventHub by visiting `http://localhost:8000` in your web browser.
+
+8. **Solve Error**
+   If you have some error, please refer to error-guide.txt for solution.
+   
+   ---
+   
+   ## Here are some screenshot of the project
+### A. Atendee
+1. **Login & Register**
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2482f0fd-4dcc-44f0-b276-1317b28d9042)
+
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/362d1d6c-9454-4273-9c82-fd1f54948709)
+
+
+2. **Homepage**
+
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/c6f2202e-d2ba-4dcf-b5c1-7ee481b193c2)
+
+3. **Category Page**
+
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/4f4f3de7-52e9-4679-b956-b0f18be154fe)
+
+4. **Search Result Page**
+
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0ad8e8d3-3645-41ad-9fb9-f8d29fbd8292)
+
+5. **Event Details Page**
+
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2a74c74e-b76b-46b6-845f-4563c77a446a)
+
+6. **Payment Page**
+
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/21b46c05-f313-4629-bf17-70d89d091d0e)
+
+7. **Favourite List Page**
+    ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/172597d1-76d0-4a93-ac5f-7249ebee5c7f)
+
+---
+
+### B. Organizer
+1. **Homepage**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/f51ea3c9-d984-41f7-aac7-e6db512e62fc)
+
+2. **Manage Event Page**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/6c58f2c7-35e0-4cf6-af73-a3923a3a0ecf)
+
+3. **Create Event**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0c2c0b62-1498-4d03-8ad9-b26b0a48a868)
+
+4. **Edit Event**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/523c1f47-656e-4304-89a2-15f162bf3c04)
+
+5. **Event Report Page**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/b9c5c278-a955-4688-97ac-7dd4f9bd962a)
+
+---
+
+### C. Admin
+1. **HomePage**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0b415f4e-408c-4812-8c5b-abf608cbde03)
+
+2. **Event Requests Page**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/39f47258-7310-40e1-8861-4c4c27809782)
+
+3. **Manage Events Page**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/5aa235ef-b264-4258-b888-ea5a6d0305ab)
+
+4. **Manage Sponsorship**
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/d99739f1-c80e-4a98-abba-e6fd5e27fd3d)
+![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/01e41d4e-b205-4203-bf7e-a6fd3b0c01ae)
+
+5. **Manage Sponsorship Request**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/055fd207-3cd0-4062-b5d0-725ab895321e)
+
+6. **Manage Accounts Page**
+   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/de06ade8-4b6d-4196-96ca-65f4b6c29878)
