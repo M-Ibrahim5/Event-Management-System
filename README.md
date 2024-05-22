@@ -61,7 +61,7 @@ EventHub is built using the following technologies and frameworks:
 1. **Clone the Repository:**  
    Clone the EventHub repository from GitHub to your local machine using the following command:
    ```
-   git clone https://github.com/your-username/EventHub.git
+   git clone https://github.com/M-Ibrahim5/Event-Management-System.git
    ```
 
 2. **Install Dependencies:**  
