@@ -2,7 +2,7 @@ log file error
 1. delete log file:
 del storage\logs\laravel.log
 
-2. icacls "C:\Users\Acer\Desktop\code\coding\sem7\web app\assignment\present\EventHub\EventHub" /grant:r Users:F /T
+2. icacls "your file path (e.g. ..../EventHub) " /grant:r Users:F /T
 
 -------------------------------------
 
