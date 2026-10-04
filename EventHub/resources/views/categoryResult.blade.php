@@ -2,22 +2,15 @@
 
 @section('container')
 
+    <a href="{{ route('home') }}" class="eh-back">&larr; All events</a>
+
     @if ($results->isEmpty())
-        <p>No event for this category</p>
+        <p class="eh-empty">No events in this category yet. Check back soon.</p>
     @else
-        <h3>{{ $category }} Events</h3>
-        <br>
-        <div class="d-flex flex-row">
+        <h2 class="eh-section-title">{{ $category }} events</h2>
+        <div class="eh-events">
             @foreach ($results as $event)
-                <div class="card mb-4" style="width: 18rem; margin-right: 10px;">
-                    <img class="card-img-top img-fluid" alt="Responsive image event" src="{{ asset(optional($event)->imagePath) }}" alt="bigpic" style="width:300px; height:300;">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $event->eventName }}</h5>
-                        <p class="card-text">{{ $event->eventStartDate->format('F j, Y') }}</p>
-                        <p>Rm {{ $event->eventPrice }}</p>
-                        <a href="{{ route('events.show', ['events' => $event->id]) }}" class="btn btn-primary">More</a>
-                    </div>
-                </div>
+                @include('partials.event-card')
             @endforeach
         </div>
     @endif

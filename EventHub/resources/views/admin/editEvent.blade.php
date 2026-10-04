@@ -1,88 +1,105 @@
 @extends('layouts.adminmain')
 
-@section('container')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-    
-                @if (session('status'))
-                    <h6 class="alert alert-success">{{ session('status') }}</h6>
-                @endif
-    
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Edit & Update Event
-                            <a href="{{ url('events') }}" class="btn btn-danger float-end">BACK</a>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-    
-                        <form action="{{ url('updateevent/'.$event->id) }}" method="POST">
-                            @csrf
-                            @method('PUT')
-    
-                            <div class="mb-3">
-                                <label for="imagePath" class="form-label">Event Image</label>
-                                <input type="file" class="form-control" id="imagePath" name="imagePath" accept="image/*" >
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Event Name</label>
-                                <input type="text" id="eventName" name="eventName" value="{{ $event->eventName }}" class="form-control">
+@section('title', 'Edit event · EventHub Admin')
 
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Description</label>
-                                <input type="text" id="eventDescription" name="eventDescription" value="{{ $event->eventDescription }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Location</label>
-                                <input type="text" id="eventLocation" name="eventLocation" value="{{ $event->eventLocation }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Event Category</label>
-                                <input type="text" id="eventCategory" name="eventCategory" value="{{ $event->eventCategory }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Start Date</label>
-                                <input type="text" id="eventStartDate"name="eventStartDate" value="{{ $event->eventStartDate }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">End Date</label>
-                                <input type="text" id="eventEndDate" name="eventEndDate" value="{{ $event->eventEndDate }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Start Time</label>
-                                <input type="text" id="eventStartTime" name="eventStartTime" value="{{ $event->eventStartTime }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">End Time</label>
-                                <input type="text" id="eventEndTime" name="eventEndTime" value="{{ $event->eventEndTime }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Price</label>
-                                <input type="text" id="eventPrice" name="eventPrice" value="{{ $event->eventPrice }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Event Capacity</label>
-                                <input type="text" id="eventCapacity" min="1" name="eventCapacity" value="{{ $event->eventCapacity }}" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Status</label>
-                                <select name="status" class="form-select" aria-label="Default select example">
-                                    <option value="Pending" {{ $event->eventStatus === 'Pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="Confirmed" {{ $event->eventStatus === 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
-                                    <option value="Rejected" {{ $event->eventStatus === 'Rejected' ? 'selected' : '' }}>Rejected</option>
-                                </select>
-                            </div>
-                        
-                            <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-primary">Update Event</button>
-                            </div>
-    
-                        </form>
-    
+@section('container')
+    <div class="eh-form-card">
+        <a href="{{ url('events') }}" class="eh-back">&larr; Back to events</a>
+
+        <div class="eh-pagehead">
+            <div>
+                <h1>Edit &amp; Update Event</h1>
+                <p>{{ $event->eventName }}</p>
+            </div>
+        </div>
+
+        @if (session('status'))
+            <div class="alert alert-success" role="status">{{ session('status') }}</div>
+        @endif
+
+        <div class="card">
+            <div class="card-body">
+                <form action="{{ url('updateevent/' . $event->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    @if ($event->imagePath)
+                        <div class="mb-3">
+                            <span class="form-label">Event image</span>
+                            <img class="eh-imgpreview mt-0" src="{{ asset($event->imagePath) }}" alt="Current event image" onerror="this.remove()">
+                            <p class="eh-help">The organizer changes the image from their own edit page.</p>
+                        </div>
+                    @endif
+
+                    <div class="mb-3">
+                        <label for="eventName" class="form-label">Event name</label>
+                        <input type="text" id="eventName" name="eventName" value="{{ old('eventName', $event->eventName) }}" class="form-control">
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="eventDescription" class="form-label">Description</label>
+                        <textarea id="eventDescription" name="eventDescription" rows="4" class="form-control">{{ old('eventDescription', $event->eventDescription) }}</textarea>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="eventLocation" class="form-label">Location</label>
+                            <input type="text" id="eventLocation" name="eventLocation" value="{{ old('eventLocation', $event->eventLocation) }}" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="eventCategory" class="form-label">Category</label>
+                            <input type="text" id="eventCategory" name="eventCategory" list="eventCategories" autocomplete="off"
+                                value="{{ old('eventCategory', $event->eventCategory) }}" class="form-control">
+                            <datalist id="eventCategories">
+                                @foreach (['Music', 'Technology', 'Education', 'Sports', 'Wedding', 'Art'] as $category)
+                                    <option value="{{ $category }}"></option>
+                                @endforeach
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="eventStartDate" class="form-label">Start date</label>
+                            <input type="date" id="eventStartDate" name="eventStartDate" value="{{ old('eventStartDate', $event->eventStartDate->format('Y-m-d')) }}" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="eventStartTime" class="form-label">Start time</label>
+                            <input type="time" id="eventStartTime" name="eventStartTime" value="{{ old('eventStartTime', $event->eventStartTime->format('H:i')) }}" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="eventEndDate" class="form-label">End date</label>
+                            <input type="date" id="eventEndDate" name="eventEndDate" value="{{ old('eventEndDate', $event->eventEndDate->format('Y-m-d')) }}" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="eventEndTime" class="form-label">End time</label>
+                            <input type="time" id="eventEndTime" name="eventEndTime" value="{{ old('eventEndTime', $event->eventEndTime->format('H:i')) }}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <label for="eventPrice" class="form-label">Price (RM)</label>
+                            <input type="number" step="any" min="0" id="eventPrice" name="eventPrice" value="{{ old('eventPrice', $event->eventPrice) }}" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="eventCapacity" class="form-label">Capacity</label>
+                            <input type="number" id="eventCapacity" min="1" name="eventCapacity" value="{{ old('eventCapacity', $event->eventCapacity) }}" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="eventStatus" class="form-label">Status</label>
+                            <select id="eventStatus" name="eventStatus" class="form-select">
+                                @foreach (['Pending', 'Confirmed', 'Rejected'] as $status)
+                                    <option value="{{ $status }}" @selected($event->eventStatus === $status)>{{ $status }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="eh-form-actions">
+                        <button type="submit" class="btn btn-primary">Update Event</button>
+                        <a href="{{ url('events') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

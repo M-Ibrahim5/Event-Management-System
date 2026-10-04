@@ -14,7 +14,7 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        /* DB::table('users')->insert([
+        DB::table('users')->insert([
             'f_name' => 'irfan',
             'l_name' => 'afifi',
             'email' => 'irfan@gmail.com',
@@ -44,7 +44,7 @@ class UsersSeeder extends Seeder
             'remember_token' => Str::random(60),
             'created_at' => now(),
             'updated_at' => now(),
-        ]); */
+        ]);
         DB::table('users')->insert([
             'f_name' => 'Event',
             'l_name' => 'Hub',

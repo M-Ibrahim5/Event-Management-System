@@ -1,94 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EventHub</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    @include('partials.head')
 </head>
-<body>
-    <div style="margin-top: 10px; margin-left: 10px;">
-        <a href="{{ route('organization.showEvent') }}" class="text-decoration-none">< Back</a>
-    </div>
+<body class="site">
+    <nav class="eh-nav">
+        <div class="eh-nav__inner">
+            <a class="eh-brand" href="/organization">EventHub</a>
+        </div>
+    </nav>
 
-    <div style="margin-top: 10px; margin-left: 70px;">
-        <h3 style="font-weight: bold; color: salmon;">Event Report : </h3>
-    </div>
+    <main class="eh-page">
+        <a href="{{ route('organization.showEvent') }}" class="eh-back">&larr; Back to your events</a>
 
-    <div style="margin-top: 10px; margin-left: 100px;">
-        <h1 style="font-weight: bold;">{{ $data->eventName }}</h1>
-    </div>
-
-    <div style="margin-top: 70px; margin-left: 100px;">
-        <h6 style="font-weight: bold;">Ticket Sales Summary</h6>
-    </div>
-    
-    <div class="row" style="margin-left: 80px;">
-    <div class="col-sm-2">
-        <div class="card" style="width: 200px;">
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 0.9rem; color: grey;">Gross Sales</h5>
-                <p class="card-text" style="font-size: 0.9rem; font-weight: bold;">RM {{ number_format($totalAmountSold, 2) }}</p>
+        <div class="eh-pagehead">
+            <div>
+                <h1>{{ $data->eventName }}</h1>
+                <p>Event report</p>
             </div>
         </div>
-    </div>
-    <div class="col-sm-2">
-        <div class="card" style="width: 200px;">
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 0.9rem; color: grey;">Net Sales</h5>
-                <p class="card-text" style="font-size: 0.9rem; font-weight: bold;">RM {{ number_format($netSales, 2) }}</p>
+
+        <h2 class="eh-form-section mt-0">Ticket sales summary</h2>
+        <div class="eh-stats">
+            <div class="eh-stat">
+                <p class="eh-stat__label">Gross sales</p>
+                <p class="eh-stat__value">RM {{ number_format($totalAmountSold, 2) }}</p>
+            </div>
+            <div class="eh-stat">
+                <p class="eh-stat__label">Net sales</p>
+                <p class="eh-stat__value">RM {{ number_format($netSales, 2) }}</p>
+            </div>
+            <div class="eh-stat">
+                <p class="eh-stat__label">Tickets sold</p>
+                <p class="eh-stat__value">{{ $totalTicketsSold }}</p>
             </div>
         </div>
-    </div>
-    <div class="col-sm-2">
-        <div class="card" style="width: 200px;">
-            <div class="card-body">
-                <h5 class="card-title" style="font-size: 0.9rem; color: grey;">Orders</h5>
-                <p class="card-text" style="font-size: 0.9rem; font-weight: bold;">{{ $totalTicketsSold }}</p>
+        <p class="eh-footnote">Net sales are gross sales minus a 3% charge for event services.</p>
+
+        <h2 class="eh-form-section">Orders</h2>
+        @if ($receiptDetails && count($receiptDetails))
+            <div class="eh-panel">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Receipt ID</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tickets</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($receiptDetails as $receipt)
+                            <tr>
+                                <td>{{ $receipt->stripe_id }}</td>
+                                <td>{{ $receipt->email }}</td>
+                                <td>{{ $receipt->ticket_quantity }}</td>
+                                <td>RM {{ number_format($receipt->amount, 2) }}</td>
+                                <td><span class="eh-status eh-status--{{ in_array(strtolower($receipt->status), ['succeeded', 'paid', 'complete']) ? 'confirmed' : '' }}">{{ $receipt->status }}</span></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
-        </div>
-    </div>
-    <div>
-        <p style="font-size: 0.9rem; color: grey;">* 3% charges for event services</p>
-    </div>
-</div>
-
-    <div style="margin-top: 30px; margin-left: 100px;">
-        <h6 style="font-weight: bold;">Orders Summary Report</h6>
-    </div>
-
-    <div style="margin-left: 80px; margin-right: 40px;">
-    @if($receiptDetails)
-        <table class="table" style="width: 100%;">
-            <thead class="table-dark">
-                <tr>
-                    <th style="width: 20%;">Receipt ID</th>
-                    <th style="width: 20%;">User Email</th>
-                    <th style="width: 20%;">Ticket Quantity</th>
-                    <th style="width: 20%;">Amount</th>
-                    <th style="width: 20%;">Status</th>
-                    <!-- Add more table headings as needed -->
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($receiptDetails as $receipt)
-                <tr>
-                    <td style="width: 20%;">{{ $receipt->stripe_id }}</td>
-                    <td style="width: 20%;">{{ $receipt->email }}</td>
-                    <td style="width: 20%;">{{ $receipt->ticket_quantity }}</td>
-                    <td style="width: 20%;">RM {{ number_format($receipt->amount, 2) }}</td>
-                    <td style="width: 20%;">{{ $receipt->status }}</td>
-                    <!-- Add more table cells for additional receipt details -->
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    @else
-        <p>No receipt details found.</p>
-    @endif
-</div>
-
-
-
+        @else
+            <p class="eh-empty">No orders yet. Ticket purchases for this event will appear here.</p>
+        @endif
+    </main>
 </body>
 </html>

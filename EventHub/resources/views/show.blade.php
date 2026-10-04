@@ -7,115 +7,129 @@
 @extends('layouts.main')
 
 @section('container')
-    {{--     <img class="themepic" src="{{ asset('img/eventoffuture.jpg') }}" alt="bigpic"> --}}
-    <img class="img-fluid" alt="Responsive image" src="{{ asset(optional($events)->imagePath) }}" alt="bigpic">
+    @php
+        $ticketsLeft = max(0, $events->eventCapacity - $totalTicketsSold);
+        $isOrganizer = Auth::check() && Auth::user()->email == $organizer->email;
+    @endphp
 
-    <div class="eventInfo">
-        <div class="eventInfo2">
-            <br>
-            <h2 style="font-weight: bold">{{ $events->eventName }}</h2>
-            <p>{{ $events->eventDescription }}</p>
-            <h5>Date and time</h5>
-            <h6 style="font-style: italic">Start</h6>
-            <p>{{ $events->eventStartDate->format('F j, Y') }}, {{ $events->eventStartTime->format('g:i A') }}</p>
-            <h6 style="font-style: italic">End</h6>
-            <p>{{ $events->eventEndDate->format('F j, Y') }}, {{ $events->eventEndTime->format('g:i A') }}</p>
-            <h5>Capacity</h5>
-            <p>{{ $events->eventCapacity }} Pax</p>
-            <h5>Sponsor</h5>
-            <p>{{ $events->sponsor }}</p>
-            <p style="color: red;">*Only {{ $events->eventCapacity - $totalTicketsSold }} Ticket left !</p>
-            <h5>Location</h5>
-            <p>{{ $events->eventLocation }}</p>
-            <h5>Organizer</h5>
-            <p>{{ $organizer->f_name }} {{ $organizer->l_name }}
-                <br> Contacts : {{ $organizer->email }}
-            </p>
+    <a href="{{ route('home') }}" class="eh-back">&larr; All events</a>
+
+    <div class="eh-hero">
+        <img src="{{ asset($events->imagePath) }}" alt="{{ $events->eventName }}" onerror="this.remove()">
+    </div>
+
+    <div class="eh-detail">
+        <div class="eh-detail__main">
+            <p class="eh-detail__category">{{ $events->eventCategory }}</p>
+            <h1 class="eh-detail__title">{{ $events->eventName }}</h1>
+            <p class="eh-detail__desc">{{ $events->eventDescription }}</p>
+
+            <dl class="eh-facts">
+                <div class="eh-fact">
+                    <dt>Starts</dt>
+                    <dd>{{ $events->eventStartDate->format('D, j M Y') }}<br>
+                        <span>{{ $events->eventStartTime->format('g:i A') }}</span></dd>
+                </div>
+                <div class="eh-fact">
+                    <dt>Ends</dt>
+                    <dd>{{ $events->eventEndDate->format('D, j M Y') }}<br>
+                        <span>{{ $events->eventEndTime->format('g:i A') }}</span></dd>
+                </div>
+                <div class="eh-fact">
+                    <dt>Location</dt>
+                    <dd>{{ $events->eventLocation }}</dd>
+                </div>
+                <div class="eh-fact">
+                    <dt>Capacity</dt>
+                    <dd>{{ $events->eventCapacity }} people</dd>
+                </div>
+                @if ($events->sponsor)
+                    <div class="eh-fact">
+                        <dt>Sponsor</dt>
+                        <dd>{{ $events->sponsor }}</dd>
+                    </div>
+                @endif
+                <div class="eh-fact">
+                    <dt>Organizer</dt>
+                    <dd>{{ $organizer->f_name }} {{ $organizer->l_name }}<br>
+                        <span>{{ $organizer->email }}</span></dd>
+                </div>
+            </dl>
         </div>
 
-        <div class="card" id="ticket" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Single Pax</h5>
-                <p class="card-text">RM {{ $events->eventPrice }}</p>
+        <aside class="eh-ticket" id="ticket">
+            <h2 class="eh-ticket__name">Single pax</h2>
+            <p class="eh-ticket__price">RM {{ number_format($events->eventPrice, 2) }}</p>
 
-                <form action="/session" method="POST">
-                    <label for="quantity">Quantity:</label>
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="number" id="quantity" name="quantity" min="1"
-                        max="{{ $events->eventCapacity - $totalTicketsSold }}" value="1">
-                    <input type="hidden" name="eventPrice" value="{{ $events->eventPrice }}">
-                    <input type="hidden" name="eventName" value="{{ $events->eventName }}">
-                    <input type="hidden" name="eventId" value="{{ $events->id }}">
-                    <br><br>
-                    @if (Auth::check() && Auth::user()->email == $organizer->email)
-                        <button type="submit" class="btn btn-primary" disabled>Get Tickets</button>
-                    @else
-                        <button type="submit" class="btn btn-primary">Get Tickets</button>
-                    @endif
-                </form>
-                {{-- --------------------------------- --}}
-                @if (Auth::check())
-                    <script>
-                        var eventId = {{ $events->id }};
-                        var email = "{{ Auth::user()->email }}";
-                    </script>
+            @if ($ticketsLeft === 0)
+                <p class="eh-ticket__left eh-ticket__left--out">Sold out</p>
+            @elseif ($ticketsLeft <= 10)
+                <p class="eh-ticket__left eh-ticket__left--low">Only {{ $ticketsLeft }} tickets left</p>
+            @else
+                <p class="eh-ticket__left">{{ $ticketsLeft }} tickets left</p>
+            @endif
 
-                    <div class="product-action-1 show">
-                        @if (Auth::check() && Auth::user()->email == $organizer->email)
-                            <a aria-label="Add To Favourite" class="action-btn hover-up addToFavourites" href="#"
-                                disabled>
-                                <img src="{{ asset('img/icons/icon-heart.svg') }}" alt="Heart Icon" style="padding:6px;">
-                            </a>
+            <form action="/session" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="eventPrice" value="{{ $events->eventPrice }}">
+                <input type="hidden" name="eventName" value="{{ $events->eventName }}">
+                <input type="hidden" name="eventId" value="{{ $events->id }}">
+
+                <label for="quantity" class="eh-ticket__label">Quantity</label>
+                <input type="number" id="quantity" name="quantity" class="form-control" min="1"
+                    max="{{ $ticketsLeft }}" value="1" @disabled($ticketsLeft === 0)>
+
+                <div class="eh-ticket__actions">
+                    <button type="submit" id="getTicket" class="btn btn-primary"
+                        @disabled($isOrganizer || $ticketsLeft === 0)>Get tickets</button>
+
+                    @if (Auth::check())
+                        @if ($isOrganizer)
+                            <span class="eh-fav addToFavourites is-disabled" aria-label="Organizers can't favourite their own event">
+                                <img src="{{ asset('img/icons/icon-heart.svg') }}" alt="">
+                            </span>
                         @else
-                            <a aria-label="Add To Favourite" class="action-btn hover-up addToFavourites"
+                            <a class="eh-fav addToFavourites" aria-label="Add to favourites"
                                 href="{{ route('addToFavourites2', ['eventId' => $events->id, 'email' => Auth::user()->email]) }}">
-                                <img src="{{ asset('img/icons/icon-heart.svg') }}" alt="Heart Icon" style="padding:6px;">
+                                <img src="{{ asset('img/icons/icon-heart.svg') }}" alt="">
                             </a>
                         @endif
-
-
-
-
-                    </div>
-            </div>
-        @else
-            <div class="product-action-1 show">
-                <a aria-label="Add To Favourite" class="action-btn hover-up addToFavourites" href="{{ route('login') }}">
-                    <img src="{{ asset('img/icons/icon-heart.svg') }}" alt="Heart Icon" style="padding:6px;">
-                </a>
-            </div>
-            @endif
-            <h4>
-                <a href="{{ route('home') }}" class="btn btn-danger float-start">BACK</a>
-            </h4>
-
-
-        </div>
-        <div clas="mmg" style="width:15em; height:5em;">
-
-            @if (Session::has('status') || Session::has('error'))
-                <script>
-                    @if (Session::has('status'))
-                        swal("status", "{{ Session::get('status') }}", 'success', {
-                            button: "OK!",
-                            timer: 3000,
-                            dangerMode: true,
-                        });
-                    @elseif (Session::has('error'))
-                        swal("error", "{{ Session::get('error') }}", 'error', {
-                            button: "OK!",
-                            timer: 3000,
-                            dangerMode: true,
-                        });
+                    @else
+                        <a class="eh-fav addToFavourites" aria-label="Log in to add to favourites" href="{{ route('login') }}">
+                            <img src="{{ asset('img/icons/icon-heart.svg') }}" alt="">
+                        </a>
                     @endif
-                </script>
+                </div>
+            </form>
+
+            @if ($isOrganizer)
+                <p class="eh-ticket__note">You organize this event, so ticket purchases are turned off.</p>
             @endif
-
-
-        </div>
-
-
+        </aside>
     </div>
 
-    </div>
+    @if (Auth::check())
+        <script>
+            var eventId = {{ $events->id }};
+            var email = "{{ Auth::user()->email }}";
+        </script>
+    @endif
+
+    @if (Session::has('status') || Session::has('error'))
+        <script>
+            @if (Session::has('status'))
+                swal("status", "{{ Session::get('status') }}", 'success', {
+                    button: "OK!",
+                    timer: 3000,
+                    dangerMode: true,
+                });
+            @elseif (Session::has('error'))
+                swal("error", "{{ Session::get('error') }}", 'error', {
+                    button: "OK!",
+                    timer: 3000,
+                    dangerMode: true,
+                });
+            @endif
+        </script>
+    @endif
 @endsection

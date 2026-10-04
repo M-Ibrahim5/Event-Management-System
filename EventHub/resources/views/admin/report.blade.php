@@ -1,42 +1,54 @@
-<!--Extending template layout-->
 @extends('layouts.adminmain')
 
+@section('title', 'Event report · EventHub Admin')
+
 @section('container')
-<div>
-    <h1 style="padding-left: 100px; display: inline-flex; font-weight: bold;">
-        {{ $events->eventName }}
-    </h1>
-</div>
-<div class="eventDetailsContainer">
-    <div class="eventInfo">
-        <div class="eventInfo2" style="margin-left: 0.8em;">
-            <br>
-            <p>{{ $events->eventDescription }}</p>
-            <h5>Date and time</h5>
-                <h6 style="font-style: italic">Start</h6>
-                    <p>{{ $events->eventStartDate->format('F j, Y') }}, {{ $events->eventStartTime->format('g:i A') }}</p>
-                <h6 style="font-style: italic">End</h6>
-                    <p>{{ $events->eventEndDate->format('F j, Y') }}, {{ $events->eventEndTime->format('g:i A') }}</p>
-            <h5>Location</h5>
-                <p>{{ $events->eventLocation }}</p>
-             <h5>Organizer</h5>
-            <h5>Sales</h5>
-                <p>Total Ticket Sold: {{ $totalTicketsSold }} Pax</p>
-                <p>Total Sales: RM {{ $totalAmountSold }}</p>
+    <a href="/events" class="eh-back">&larr; Back to events</a>
+
+    <div class="eh-pagehead">
+        <div>
+            <h1>{{ $events->eventName }}</h1>
+            <p>Event report &middot; <span class="eh-status eh-status--{{ strtolower($events->eventStatus) }}">{{ $events->eventStatus }}</span></p>
         </div>
     </div>
-    <!--<img class="detailpic" src="{{ asset('img/eventoffuture.jpg') }}" alt="bigpic" style="width: 45%; height: auto;">-->
 
-</div>
-    <br><br>
-
-    <div class="buttons">
-        <form action="/events" method="GET" style="margin-left: 95px; display: inline-flex;">
-            @csrf     
-            <button type='submit' class="btn btn-primary btn-large" data-toggle="tooltip" id="back">
-                Back
-            </button>
-        </form>
-        <br><br>
+    <div class="eh-stats">
+        <div class="eh-stat">
+            <p class="eh-stat__label">Tickets sold</p>
+            <p class="eh-stat__value">{{ $totalTicketsSold }} <small class="fs-6 fw-normal text-muted">of {{ $events->eventCapacity }}</small></p>
+        </div>
+        <div class="eh-stat">
+            <p class="eh-stat__label">Total sales</p>
+            <p class="eh-stat__value">RM {{ number_format((float) $totalAmountSold, 2) }}</p>
+        </div>
     </div>
-@endsection  
+
+    <dl class="eh-facts">
+        <div class="eh-fact" style="grid-column: 1 / -1;">
+            <dt>About this event</dt>
+            <dd class="fw-normal">{{ $events->eventDescription }}</dd>
+        </div>
+        <div class="eh-fact">
+            <dt>Starts</dt>
+            <dd>{{ $events->eventStartDate->format('D, j M Y') }}<br><span>{{ $events->eventStartTime->format('g:i A') }}</span></dd>
+        </div>
+        <div class="eh-fact">
+            <dt>Ends</dt>
+            <dd>{{ $events->eventEndDate->format('D, j M Y') }}<br><span>{{ $events->eventEndTime->format('g:i A') }}</span></dd>
+        </div>
+        <div class="eh-fact">
+            <dt>Location</dt>
+            <dd>{{ $events->eventLocation }}</dd>
+        </div>
+        <div class="eh-fact">
+            <dt>Ticket price</dt>
+            <dd>RM {{ number_format($events->eventPrice, 2) }}</dd>
+        </div>
+    </dl>
+
+    <div class="buttons mt-4">
+        <form action="/events" method="GET">
+            <button type="submit" class="btn btn-primary" id="back">Back</button>
+        </form>
+    </div>
+@endsection

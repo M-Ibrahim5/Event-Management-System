@@ -1,87 +1,77 @@
 @extends('layouts.adminmain')
 
+@section('title', 'Events · EventHub Admin')
+
 @section('container')
-<div class="card">
-    <div class="card-header">
-        <h2>
-            Events
-            <a href='/createevent' class="btn btn-success float-end">Add Event</a>
-            <br>
-        </h2> 
-        <!--Search Bar-->
-        <form class="d-flex" role="search" method="GET" action="{{ url('/events') }}">
-            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            <button class="btn btn-outline-danger" type="a" href="{{ url('/events') }}" style="margin-left: 10px">Clear</button>
-        </form>
+    <div class="eh-pagehead">
+        <div>
+            <h1>Events</h1>
+            <p>Every event on the platform, whatever its status.</p>
+        </div>
+        <a href='/createevent' class="btn btn-primary">Add Event</a>
     </div>
-</div>
 
-    <div class = allEvents>
-        @if (session('status'))
-            <h6 class="alert alert-danger">{{ session('status') }}</h6>
-        @endif
-    
+    <!--Search Bar-->
+    <form class="eh-toolbar" role="search" method="GET" action="{{ url('/events') }}">
+        <input class="form-control" type="search" name="search" value="{{ request('search') }}" placeholder="Search events" aria-label="Search events">
+        <button class="btn btn-dark" type="submit">Search</button>
+        <a class="btn btn-outline-secondary" href="{{ url('/events') }}">Clear</a>
+    </form>
 
-        <table class="table table-bordered border-black">
+    @if (session('status'))
+        <div class="alert alert-success" role="status">{{ session('status') }}</div>
+    @endif
+
+    <div class="allEvents eh-panel">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Location</th>
+                    <th scope="col">Event</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">End Date</th>
-                    <th scope="col">Start Time</th>
-                    <th scope="col">End Time</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">Dates</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Price (RM)</th>
                     <th scope="col">Capacity</th>
                     <th scope="col">Status</th>
-                    <th scope='col'>Action</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                </tr>
             </thead>
-            <tbody class="table-group-divider">
-                @foreach ($data as $data)
+            <tbody>
+                @forelse ($data as $event)
                     <tr>
-                        <th scope="row">{{ $data->id }}</th>
-                        <td><a href="{{ url('editevent/'.$data->id) }}">{{ $data->eventName }}</a></td>
-                        <td>{{ $data->eventLocation }}</td>
-                        <td>{{ $data->eventCategory }}</td>
-                        <td>{{ $data->eventStartDate->format('F j, Y') }}</td>
-                        <td>{{ $data->eventEndDate->format('F j, Y') }}</td>
-                        <td>{{ $data->eventStartTime->format('g:i A') }}</td>
-                        <td>{{ $data->eventEndTime->format('g:i A') }}</td>
-                        <td>{{ $data->eventPrice }}</td>
-                        <td>{{ $data->eventCapacity }}</td>
-                        <td>{{ $data->eventStatus }}</td>
-                        
+                        <th scope="row">{{ $event->id }}</th>
                         <td>
-                            <form action="{{ url('deleteevent/'.$data->id) }}" method="POST" style="display: inline-block;margin-bottom:1em;">
-                                @csrf
-                                @method('delete')
-                                
-                                <button type='submit' class="btn btn-danger btn-sm" data-toggle="tooltip" >
-                                    Delete
-                                </button>
-                            </form>
-                            <form action="{{ url('report/'.$data->id) }}" method="GET" style="display: inline-block;">
-                                @csrf
-                                
-                                <button type='submit' class="btn btn-warning btn-sm" data-toggle="tooltip">
-                                    View
-                                </button>
-                            </form>
-
-                            <form action="/editevent/{{ $data->id }}" method="GET" style="display: inline-block;">
-                                @csrf
-                                <button type='submit' class="btn btn-warning btn-sm" data-toggle="tooltip">
-                                    Edit
-                                </button>
-                            </form>
+                            <a href="{{ url('editevent/' . $event->id) }}">{{ $event->eventName }}</a>
+                            <span class="eh-sub">{{ $event->eventLocation }}</span>
+                        </td>
+                        <td>{{ $event->eventCategory }}</td>
+                        <td class="eh-nowrap">
+                            {{ $event->eventStartDate->format('j M Y') }}
+                            @if (! $event->eventStartDate->isSameDay($event->eventEndDate))
+                                <span class="eh-sub">to {{ $event->eventEndDate->format('j M Y') }}</span>
+                            @endif
+                        </td>
+                        <td class="text-nowrap">{{ $event->eventStartTime->format('g:i A') }} &ndash; {{ $event->eventEndTime->format('g:i A') }}</td>
+                        <td>{{ $event->eventPrice }}</td>
+                        <td>{{ $event->eventCapacity }}</td>
+                        <td><span class="eh-status eh-status--{{ strtolower($event->eventStatus) }}">{{ $event->eventStatus }}</span></td>
+                        <td>
+                            <div class="eh-actions-cell">
+                                <a href="{{ url('report/' . $event->id) }}" class="btn btn-outline-secondary btn-sm">View</a>
+                                <a href="{{ url('editevent/' . $event->id) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                                <form action="{{ url('deleteevent/' . $event->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr><td colspan="9" class="text-center text-muted py-5">No events found.</td></tr>
+                @endforelse
             </tbody>
         </table>
-        
     </div>
 @endsection

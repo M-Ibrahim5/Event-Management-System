@@ -1,35 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/auth.css">
-    <title>Event Manager</title>
-</head>
-<body>
-    <br><br><br>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <a href="/" class="title">EventHub</a>
-                <h3>Login</h3>
-                <br>
-                <form action="/loginProcess" method="post">
-                    @csrf
-                    <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Email address" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-dark">Login</button>
-                </form>
-                <div class="container">
-                    <a href="/signup">Sign Up</a>
-                </div>
-            </div>
+@extends('layouts.auth')
+
+@section('title', 'Log in · EventHub')
+
+@section('container')
+    <h1 class="eh-auth__title">Log in</h1>
+    <p class="eh-auth__lead">Welcome back. Pick up where you left off.</p>
+
+    @if (session('error'))
+        <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+    @endif
+    @if (session('status'))
+        <div class="alert alert-success" role="status">{{ session('status') }}</div>
+    @endif
+
+    <form action="/loginProcess" method="post">
+        @csrf
+        <div class="eh-auth__field">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}"
+                autocomplete="email" required autofocus>
         </div>
-    </div>
-</body>
-</html>
+        <div class="eh-auth__field">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password"
+                autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-dark eh-auth__submit">Login</button>
+    </form>
+
+    <p class="eh-auth__switch">New to EventHub? <a href="/signup">Create an account</a></p>
+@endsection

@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\DB;
 
 class EventsSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        
+        // Temporarily disable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // Truncate the table
+        DB::table('events')->truncate();
+
+        // Re-enable foreign key checks
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         DB::table('events')->insert([
             'eventName' => 'Tech Conference',
             'eventDescription' => 'An annual conference for tech enthusiasts.',
@@ -27,9 +36,9 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 30,
             'eventStatus' => 'Confirmed',
             'email' => 'irfan@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'Petronas',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\eventoffuture.jpg',
+            'sponsor' => 'Petronas',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -47,13 +56,13 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 50,
             'eventStatus' => 'Confirmed',
             'email' => 'ibrahim@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'HOT FM',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\consert.jpg',
+            'sponsor' => 'HOT FM',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         DB::table('events')->insert([
             'eventName' => 'Football Match',
             'eventDescription' => 'Exciting football match between top teams.',
@@ -67,13 +76,13 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 100,
             'eventStatus' => 'Confirmed',
             'email' => 'irfan@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'PUMA',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\football.jpg',
+            'sponsor' => 'PUMA',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         DB::table('events')->insert([
             'eventName' => 'Wedding Ceremony',
             'eventDescription' => 'A beautiful wedding ceremony celebration.',
@@ -87,13 +96,13 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 50,
             'eventStatus' => 'Confirmed',
             'email' => 'ibrahim@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'KACIP FATIMAH',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\wedding.jpg',
+            'sponsor' => 'KACIP FATIMAH',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         DB::table('events')->insert([
             'eventName' => 'Programming Workshop',
             'eventDescription' => 'A workshop aimed at enhancing programming skills.',
@@ -107,13 +116,13 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 40,
             'eventStatus' => 'Confirmed',
             'email' => 'irfan@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'DELL',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\Flutter workshop.jpg',
+            'sponsor' => 'DELL',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-        
+
         DB::table('events')->insert([
             'eventName' => 'Art Exhibition',
             'eventDescription' => 'An exhibition showcasing diverse art forms.',
@@ -127,13 +136,13 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 80,
             'eventStatus' => 'Confirmed',
             'email' => 'ibrahim@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'GUCCI',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\art.jpg',
+            'sponsor' => 'GUCCI',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-       
+
         DB::table('events')->insert([
             'eventName' => 'BlackMamba Concert',
             'eventDescription' => 'A thrilling concert featuring the famous band BlackMamba.',
@@ -147,12 +156,11 @@ class EventsSeeder extends Seeder
             'eventCapacity' => 150, // Adjusted capacity
             'eventStatus' => 'Confirmed',
             'email' => 'ibrahim@gmail.com', // Assuming this email exists in the 'users' table
-            'imagePath'=>'img\eventoffuture.jpg',
-            'sponsor'=>'ASTRO',
-            'sponsorStatus'=>'Confirmed',
+            'imagePath' => 'img\consertband.jpg',
+            'sponsor' => 'ASTRO',
+            'sponsorStatus' => 'Confirmed',
             'created_at' => now(),
             'updated_at' => now(),
-        ]);        
-        
+        ]);
     }
 }

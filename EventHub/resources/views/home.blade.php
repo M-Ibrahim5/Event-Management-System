@@ -3,70 +3,38 @@
 
 @section('container')
 
-    <h3>Find your next event</h3>
+    <section class="eh-section">
+        <h2 class="eh-section-title">Find your next event</h2>
 
-    <div class="allEvent">
-        <div class="eventButton">
-            <a class="eventCategory" href="{{ route('events.category', ['category' => 'Music']) }}">
-                <img class="eventImage" src="{{ asset('img/music.png') }}" alt="music">
-            </a>
-            <h6 class="eventTitle">Music</h6>
+        <div class="eh-categories">
+            @foreach ([
+                ['Music', 'Music', 'music.png'],
+                ['Technology', 'Technology', 'technology.png'],
+                ['Education', 'Education', 'education.png'],
+                ['Sports', 'Sport', 'sports.png'],
+                ['Wedding', 'Wedding', 'wedding.png'],
+                ['Art', 'Performing & visual arts', 'art.png'],
+            ] as [$slug, $label, $icon])
+                <a class="eh-category" href="{{ route('events.category', ['category' => $slug]) }}">
+                    <img src="{{ asset('img/' . $icon) }}" alt="">
+                    <span>{{ $label }}</span>
+                </a>
+            @endforeach
         </div>
-        <div class="eventButton">
-            <a class="eventCategory" href="{{ route('events.category', ['category' => 'Technology']) }}">
-                <img class="eventImage" src="{{ asset('img/technology.png') }}" alt="art">
-            </a>
-            <h6 class="eventTitle">Technology</h6>
-            <br>
-        </div>
-        <div class="eventButton">
-            <a class="eventCategory" href="{{ route('events.category', ['category' => 'Education']) }}">
-                <img class="eventImage" src="{{ asset('img/education.png') }}" alt="art">
-            </a>
-            <h6 class="eventTitle">Education</h6>
-            <br>
-        </div>
-        <div class="eventButton">
-            <a class="eventCategory" href="{{ route('events.category', ['category' => 'Sports']) }}">
-                <img class="eventImage" src="{{ asset('img/sports.png') }}" alt="art">
-            </a>
-            <h6 class="eventTitle">Sport</h6>
-            <br>
-        </div>
-        <div class="eventButton">
-            <a class="eventCategory" href="{{ route('events.category', ['category' => 'Wedding']) }}">
-                <img class="eventImage" src="{{ asset('img/wedding.png') }}" alt="art">
-            </a>
-            <h6 class="eventTitle">Wedding</h6>
-            <br>
-        </div>
-        <div class="eventButton">
-            <a class="eventCategory" href="{{ route('events.category', ['category' => 'Art']) }}">
-                <img class="eventImage" src="{{ asset('img/art.png') }}" alt="art">
-            </a>
-            <h6 class="eventTitle">Perform & Visual Arts</h6>
-            <br>
-        </div>
-    </div>
+    </section>
 
-   
+    <section class="eh-section">
+        <h2 class="eh-section-title">Upcoming events</h2>
 
-    <h3>Upcoming Events</h3> <br>
-    
-    <div class="d-flex flex-row">
-        @foreach ($data as $event)
-            <div class="card" style="width: 18rem; margin-right: 10px;">
-                <img class="card-img-top img-fluid" alt="Responsive image event" src="{{ asset(optional($event)->imagePath) }}" alt="bigpic" style="width:300px; height:300;">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $event->eventName }}</h5>
-                    <p class="card-text">{{ \Carbon\Carbon::parse($event->eventStartDate)->format('F j, Y') }}</p>
-                    <p>Rm {{ $event->eventPrice }}</p>
-                    <a href="{{ route('events.show', ['events' => $event->id]) }}" class="btn btn-primary">More</a>
-                </div>
+        @if ($data->isEmpty())
+            <p class="eh-empty">No upcoming events yet. Check back soon.</p>
+        @else
+            <div class="eh-events">
+                @foreach ($data as $event)
+                    @include('partials.event-card')
+                @endforeach
             </div>
-        @endforeach
-    </div>
+        @endif
+    </section>
 
-
-
-@endsection        
+@endsection

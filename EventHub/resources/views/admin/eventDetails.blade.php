@@ -1,62 +1,67 @@
 <!--Extending template layout-->
 @extends('layouts.adminmain')
 
+@section('title', 'Review event · EventHub Admin')
+
 @section('container')
-<div>
+    <a href="/requests" class="eh-back">&larr; Back to event requests</a>
+
     @if (session('status'))
-        <h6 class="alert alert-success">{{ session('status') }}</h6>
+        <div class="alert alert-success" role="status">{{ session('status') }}</div>
     @endif
     @if (session('error'))
-    <h6 class="alert alert-danger">{{ session('error') }}</h6>
-@endif
-</div>
-    <img class="themepic" src="{{ asset('img/eventoffuture.jpg') }}" alt="bigpic">
-    <div class="eventInfo">
-        <div class="eventInfo2">
-            <br>
-        <h2 style="font-weight: bold">{{ $events->eventName }}</h2>
-        <p>{{ $events->eventDescription }}</p>
-            <h5>Date and time</h5>
-                <h6 style="font-style: italic">Start</h6>
-                    <p>{{ $events->eventStartDate->format('F j, Y') }}, {{ $events->eventStartTime->format('g:i A') }}</p>
-                <h6 style="font-style: italic">End</h6>
-                    <p>{{ $events->eventEndDate->format('F j, Y') }}, {{ $events->eventEndTime->format('g:i A') }}</p>
-            <h5>Location</h5>
-                <p>{{ $events->eventLocation }}</p>
-            {{-- <h5>Organizer</h5>
-                <p>{{ $organizer->f_name }} {{ $organizer->l_name }}
-                <br> Contacts : {{ $organizer->email }}
-            </p> --}}
-        </div>
-        <div class="ticket" >
-            <h5>Ticket Price</h5>
-            <p>RM {{ $events->eventPrice }}</p>
-            <a href="#">Get tickets</a>
-        </div>
+        <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
+    @endif
+
+    <div class="eh-hero">
+        <img src="{{ asset($events->imagePath) }}" alt="{{ $events->eventName }}" onerror="this.remove()">
     </div>
-    <br><br>
-    <div class="buttons">
-        <form action="{{ url('update-status/'.$events->id.'/accepted') }}" method="POST" style="padding-right: 85px;">
-            @csrf
-            
-            <button type='submit' class="btn btn-success btn-large" data-toggle="tooltip" id="accept">
-                Accept
-            </button>
-        </form>
-        <form action="{{ url('update-status/'.$events->id.'/rejected') }}" method="POST" style="padding-right: 85px; ">
-            @csrf
-            
-            <button type='submit' class="btn btn-danger btn-large" data-toggle="tooltip" id="reject">
-                Reject
-            </button>
-        </form>
-        <form action="/requests" method="GET" style="padding-left: 85px; display: inline-flex;">
-            @csrf
-            
-            <button type='submit' class="btn btn-primary btn-large" data-toggle="tooltip" id="back" >
-                Back
-            </button>
-        </form>
-        <br><br>
+
+    <div class="eh-detail">
+        <div class="eh-detail__main">
+            <p class="eh-detail__category">{{ $events->eventCategory }}</p>
+            <h1 class="eh-detail__title">{{ $events->eventName }}</h1>
+            <p class="eh-detail__desc">{{ $events->eventDescription }}</p>
+
+            <dl class="eh-facts">
+                <div class="eh-fact">
+                    <dt>Starts</dt>
+                    <dd>{{ $events->eventStartDate->format('D, j M Y') }}<br><span>{{ $events->eventStartTime->format('g:i A') }}</span></dd>
+                </div>
+                <div class="eh-fact">
+                    <dt>Ends</dt>
+                    <dd>{{ $events->eventEndDate->format('D, j M Y') }}<br><span>{{ $events->eventEndTime->format('g:i A') }}</span></dd>
+                </div>
+                <div class="eh-fact">
+                    <dt>Location</dt>
+                    <dd>{{ $events->eventLocation }}</dd>
+                </div>
+                <div class="eh-fact">
+                    <dt>Capacity</dt>
+                    <dd>{{ $events->eventCapacity }} people</dd>
+                </div>
+            </dl>
+        </div>
+
+        <aside class="eh-ticket">
+            <h2 class="eh-ticket__name">Ticket price</h2>
+            <p class="eh-ticket__price">RM {{ number_format($events->eventPrice, 2) }}</p>
+            <p class="eh-ticket__left">Current status:
+                <span class="eh-status eh-status--{{ strtolower($events->eventStatus) }}">{{ $events->eventStatus }}</span></p>
+
+            <div class="buttons d-grid gap-2">
+                <form action="{{ url('update-status/' . $events->id . '/accepted') }}" method="POST" class="d-grid">
+                    @csrf
+                    <button type="submit" class="btn btn-success" id="accept">Accept</button>
+                </form>
+                <form action="{{ url('update-status/' . $events->id . '/rejected') }}" method="POST" class="d-grid">
+                    @csrf
+                    <button type="submit" class="btn btn-danger" id="reject">Reject</button>
+                </form>
+                <form action="/requests" method="GET" class="d-grid">
+                    <button type="submit" class="btn btn-outline-secondary" id="back">Back</button>
+                </form>
+            </div>
+        </aside>
     </div>
-@endsection  
+@endsection

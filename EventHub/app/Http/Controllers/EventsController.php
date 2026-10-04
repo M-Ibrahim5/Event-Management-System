@@ -20,11 +20,13 @@ class EventsController extends Controller
 {
     $currentDate = Carbon::now()->toDateString();
 
+    // Confirmed events that haven't started yet, soonest first.
+    // (MySQL's default collation already ignores case for 'Confirmed'.)
     $data = DB::table('events')
-        ->where('eventStatus', 'Confirmed') // Add this condition for eventStatus
-        ->orWhere('eventStatus', 'confirmed') // Additional condition for case-insensitive check
+        ->where('eventStatus', 'Confirmed')
         ->whereDate('eventStartDate', '>=', $currentDate)
-        ->take(5)
+        ->orderBy('eventStartDate')
+        ->take(10)
         ->get();
 
     // dd($data);    
@@ -37,9 +39,12 @@ class EventsController extends Controller
         $keyword = $request->input('keyword');
 
         // Perform the search using your model
-        $results = Events::where('eventName', 'LIKE', '%' . $keyword . '%')->get();
+        $results = Events::where('eventName', 'LIKE', '%' . $keyword . '%')
+            ->where('eventStatus', 'Confirmed')
+            ->orderBy('eventStartDate')
+            ->get();
 
-        return view('searchResult', ['results' => $results]);
+        return view('searchResult', ['results' => $results, 'keyword' => $keyword]);
     }
 
     public function category($category)
@@ -48,7 +53,10 @@ class EventsController extends Controller
         //$eventCategory = Events::where('eventCategory', $category)->first();
 
         // Perform the search using your model
-        $results = Events::where('eventCategory', 'LIKE', '%' . $category . '%')->get();
+        $results = Events::where('eventCategory', 'LIKE', '%' . $category . '%')
+            ->where('eventStatus', 'Confirmed')
+            ->orderBy('eventStartDate')
+            ->get();
         //dd($results);
 
         return view('categoryResult', ['results' => $results , 'category' => $category]);

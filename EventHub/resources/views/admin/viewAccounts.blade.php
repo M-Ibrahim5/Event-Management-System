@@ -1,59 +1,52 @@
 @extends('layouts.adminmain')
 
+@section('title', 'Accounts · EventHub Admin')
+
 @section('container')
-<div class="card">
-    <div class="card-header">
-        <h2>Accounts
-            <a href='/createuser' class="btn btn-success float-end">Add Account</a>
-        </h2>  
-        <form class="d-flex" role="search" method="GET" action="{{ url('/accounts') }}">
-            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            <button class="btn btn-outline-danger" type="a" href="{{ url('/accounts') }}" style="margin-left: 10px">Clear</button>
-        </form>
+    <div class="eh-pagehead">
+        <div>
+            <h1>Accounts</h1>
+            <p>People who can buy tickets and organize events.</p>
+        </div>
+        <a href='/createuser' class="btn btn-primary">Add Account</a>
     </div>
-</div>
-<div class = allAccounts>
+
+    <form class="eh-toolbar" role="search" method="GET" action="{{ url('/accounts') }}">
+        <input class="form-control" type="search" name="search" value="{{ request('search') }}" placeholder="Search accounts" aria-label="Search accounts">
+        <button class="btn btn-dark" type="submit">Search</button>
+        <a class="btn btn-outline-secondary" href="{{ url('/accounts') }}">Clear</a>
+    </form>
+
     @if (session('status'))
-        <h6 class="alert alert-danger">{{ session('status') }}</h6>
+        <div class="alert alert-success" role="status">{{ session('status') }}</div>
     @endif
 
-    <table class="table table-bordered border-black">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                {{-- <th scope="col">Is Organizer?</th> --}}
-                <th scope='col'></th>
-        </thead>
-        <tbody class="table-group-divider">
-            @foreach ($data as $data)
+    <div class="allAccounts eh-panel">
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>{{ $data->f_name }} {{ $data->l_name }}</td>
-                    <td>{{ $data->email }}</td>
-                    {{-- <td>
-                        @if($data->is_organizer)
-                                True
-                            @else
-                                False
-                            @endif 
-
-                        Should have boolean variable kalau nak ikut idea madam
-                    </td>                                            --}}
-                    <td class="text-center">
-                        <form action={{ url('deleteuser/'.$data->id) }} method="POST"> 
-                        @csrf
-                        @method('delete')
-                        
-                        <button type='submit' class="btn btn-danger btn-sm" data-toggle="tooltip">
-                            Delete
-                        </button>
-                        </form>
-                    </td>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    
-</div>
+            </thead>
+            <tbody>
+                @forelse ($data as $account)
+                    <tr>
+                        <td>{{ $account->f_name }} {{ $account->l_name }}</td>
+                        <td>{{ $account->email }}</td>
+                        <td class="text-end">
+                            <form action="{{ url('deleteuser/' . $account->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="3" class="text-center text-muted py-5">No accounts found.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
 @endsection

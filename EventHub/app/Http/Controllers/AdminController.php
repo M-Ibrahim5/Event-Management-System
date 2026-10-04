@@ -158,7 +158,12 @@ class AdminController extends Controller
     {
         $count = Events::where('eventStatus', '=', 'Pending')->count();
 
-        return view('admin/dashboard')->with('count', $count);
+        return view('admin/dashboard', [
+            'count' => $count,
+            'liveEvents' => Events::where('eventStatus', 'Confirmed')->count(),
+            'sponsorCount' => Sponsorships::count(),
+            'accountCount' => User::count(),
+        ]);
     }
 
     //Get all event requests

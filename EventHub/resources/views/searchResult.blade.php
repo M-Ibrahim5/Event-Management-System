@@ -1,21 +1,25 @@
 @extends('layouts.main')
 
+@section('title', 'Search · EventHub')
+
 @section('container')
-    <h3>Search Results</h3>
-    <br>
-    <div class="d-flex flex-row">
-        @foreach ($results as $event)
-            <div class="card" style="width: 18rem; margin-right: 10px;">
-                <img src="{{ asset(optional($event)->imagePath) }}" class="card-img-top" alt="event">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $event->eventName }}</h5>
-                    <p class="card-text">{{ $event->eventStartDate->format('F j, Y') }}</p>
-                    <p>Rm {{ $event->eventPrice }}</p>
-                    <a href="{{ route('events.show', ['events' => $event->id]) }}" class="btn btn-primary">More</a>
-                </div>
-            </div>
-        @endforeach
-    </div>
+    <a href="{{ route('home') }}" class="eh-back">&larr; All events</a>
 
+    <h2 class="eh-section-title">
+        @if (filled($keyword))
+            Results for &ldquo;{{ $keyword }}&rdquo;
+        @else
+            All events
+        @endif
+    </h2>
 
-@endsection   
+    @if ($results->isEmpty())
+        <p class="eh-empty">No events match that search. Try a different name, or browse a category on the home page.</p>
+    @else
+        <div class="eh-events">
+            @foreach ($results as $event)
+                @include('partials.event-card')
+            @endforeach
+        </div>
+    @endif
+@endsection

@@ -1,54 +1,54 @@
 @extends('layouts.adminmain')
 
-@section('container')
-<div class="card">
-    <div class="card-header">
-        <h2>Sponsors
-            <a href='/createsponsor' class="btn btn-success float-end">Add Sponsor</a>
-        </h2>  
-        <form class="d-flex" role="search" method="GET" action="{{ url('/sponsors') }}">
-            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-            <button class="btn btn-outline-danger" type="a" href="{{ url('/sponsors') }}" style="margin-left: 10px">Clear</button>
-        </form>
-    </div>            
-</div>   
-    <div class = allSponsors> 
-        @if (session('status'))
-            <h6 class="alert alert-danger">{{ session('status') }}</h6>
-        @endif
+@section('title', 'Sponsorships · EventHub Admin')
 
-        <table class="table table-bordered border-black">
+@section('container')
+    <div class="eh-pagehead">
+        <div>
+            <h1>Sponsorships</h1>
+            <p>Sponsors that organizers can apply to.</p>
+        </div>
+        <a href='/createsponsor' class="btn btn-primary">Add Sponsor</a>
+    </div>
+
+    <form class="eh-toolbar" role="search" method="GET" action="{{ url('/sponsors') }}">
+        <input class="form-control" type="search" name="search" value="{{ request('search') }}" placeholder="Search sponsors" aria-label="Search sponsors">
+        <button class="btn btn-dark" type="submit">Search</button>
+        <a class="btn btn-outline-secondary" href="{{ url('/sponsors') }}">Clear</a>
+    </form>
+
+    @if (session('status'))
+        <div class="alert alert-success" role="status">{{ session('status') }}</div>
+    @endif
+
+    <div class="allSponsors eh-panel">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Amount (RM)</th>
-                    <th scope='col'></th>
+                    <th scope="col" class="text-end">Amount (RM)</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                </tr>
             </thead>
-            <tbody class="table-group-divider">
-                @foreach ($data as $data)
+            <tbody>
+                @forelse ($data as $sponsor)
                     <tr>
-                        <td><a href="{{ url('editsponsor/'.$data->id) }}">{{ $data->sponsorName }}</a></td>
-                        <td>{{ $data->sponsorDescription }}</td>
-                        <td>{{ $data->sponsorAmount }}</td>
-                        <td>
-                            <form action="{{ url('deletesponsor/'.$data->id) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            
-                            <center>
-                                <button type='submit' class="btn btn-danger btn-sm" data-toggle="tooltip">
-                                    Delete
-                                </button>
-                            </center>
-                            
+                        <td><a href="{{ url('editsponsor/' . $sponsor->id) }}">{{ $sponsor->sponsorName }}</a></td>
+                        <td>{{ $sponsor->sponsorDescription }}</td>
+                        <td class="text-end">{{ $sponsor->sponsorAmount }}</td>
+                        <td class="text-end">
+                            <form action="{{ url('deletesponsor/' . $sponsor->id) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr><td colspan="4" class="text-center text-muted py-5">No sponsors found.</td></tr>
+                @endforelse
             </tbody>
         </table>
-        
     </div>
 @endsection

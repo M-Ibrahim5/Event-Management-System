@@ -22,8 +22,9 @@ class AuthController extends Controller
         if(Auth::attempt($request->only('email','password'))){
             return redirect()->intended('/'); /*redirect users to the page they initially attempted to access before being prompted to log in*/ 
         }
-        //$dd($credentials);
-        return \redirect('/login');
+        return \redirect('/login')
+            ->withInput($request->only('email'))
+            ->with('error', 'Email or password is incorrect. Check them and try again.');
     }
 
     public function signup(){
@@ -42,7 +43,7 @@ class AuthController extends Controller
             'updated_at' => now(),
         ]);
 
-        return \redirect('/login');
+        return \redirect('/login')->with('status', 'Account created. Log in to continue.');
     }
 
     public function logout()

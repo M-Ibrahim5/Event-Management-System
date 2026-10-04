@@ -1,54 +1,51 @@
 @extends('layouts.adminmain')
 
+@section('title', 'Add account · EventHub Admin')
+
 @section('container')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-    
-                @if (session('status'))
-                    <h6 class="alert alert-success">{{ session('status') }}</h6>
-                @endif
-    
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Add Event
-                            <a href="{{ url('accounts') }}" class="btn btn-danger float-end">BACK</a>
-                        </h4>
+    <div class="eh-form-card">
+        <a href="{{ url('accounts') }}" class="eh-back">&larr; Back to accounts</a>
+
+        <div class="eh-pagehead">
+            <div>
+                <h1>Add Account</h1>
+                <p>Create a user who can buy tickets and organize events.</p>
+            </div>
+        </div>
+
+        @if (session('status'))
+            <div class="alert alert-success" role="status">{{ session('status') }}</div>
+        @endif
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/storeuser" method="POST">
+                    @csrf
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="f_name" class="form-label">First name</label>
+                            <input type="text" id="f_name" name="f_name" class="form-control" autocomplete="off" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="l_name" class="form-label">Last name</label>
+                            <input type="text" id="l_name" name="l_name" class="form-control" autocomplete="off" required>
+                        </div>
                     </div>
-                    <div class="card-body">
-    
-                        <form action="/storeuser" method="POST">
-                            @csrf
-    
-                            <div class="form-group mb-3">
-                                <label for="">User First Name</label>
-                                <input type="text" name="f_name" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">User Last Name</label>
-                                <input type="text" name="l_name"  class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Email</label>
-                                <input type="text" name="email" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="">Password</label>
-                                <input type="text" name="password" class="form-control">
-                            </div>
-                            {{-- <div>      Not implemented yet/xtau nk implement ke x
-                                <label for="">Organizer?</label>
-                                <select name="confirmation" class="form-select" aria-label="Default select example">
-                                    <option value="True" {{ $user->isOrganiser === 'True' ? 'selected' : '' }}>True</option>
-                                    <option value="False" {{ $user->isOrganiser === 'False' ? 'selected' : '' }}>False</option>
-                                </select>
-                            </div> --}}
-                            <div class="form-group mb-3">
-                                <button type="submit" class="btn btn-primary">Add User</button>
-                            </div>
-                        </form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" name="email" class="form-control" autocomplete="off" required>
                     </div>
-                </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" autocomplete="new-password" required>
+                    </div>
+
+                    <div class="eh-form-actions">
+                        <button type="submit" class="btn btn-primary">Add User</button>
+                        <a href="{{ url('accounts') }}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
