@@ -105,70 +105,65 @@ EventHub is built using the following technologies and frameworks:
 ### A. Atendee
 1. **Login & Register**
 
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2482f0fd-4dcc-44f0-b276-1317b28d9042)
+<img width="476" height="503" alt="image" src="https://github.com/user-attachments/assets/3cf74fe8-85e9-4d1f-8df7-d7337711eb41" />
 
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/362d1d6c-9454-4273-9c82-fd1f54948709)
+<img width="393" height="503" alt="image" src="https://github.com/user-attachments/assets/0d80f288-94f9-43b8-906a-8404287ab3b1" />
+
 
 2. **Homepage**
 
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/c6f2202e-d2ba-4dcf-b5c1-7ee481b193c2)
+<img width="1294" height="1167" alt="image" src="https://github.com/user-attachments/assets/eb878b7a-ba5e-4e75-a08e-0676562bc715" />
 
-3. **Category Page**
+3. Event Details Page**
 
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/4f4f3de7-52e9-4679-b956-b0f18be154fe)
+<img width="1126" height="1007" alt="image" src="https://github.com/user-attachments/assets/6112014c-41a3-4591-90bd-a541160178d6" />
 
-4. **Search Result Page**
-
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0ad8e8d3-3645-41ad-9fb9-f8d29fbd8292)
-
-5. **Event Details Page**
-
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/2a74c74e-b76b-46b6-845f-4563c77a446a)
 
 6. **Payment Page**
 
    ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/21b46c05-f313-4629-bf17-70d89d091d0e)
 
 7. **Favourite List Page**
-    ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/172597d1-76d0-4a93-ac5f-7249ebee5c7f)
+
+<img width="1306" height="485" alt="image" src="https://github.com/user-attachments/assets/f4068943-640d-464e-b7d8-1c5758d54516" />
 
 ---
 
 ### B. Organizer
 1. **Homepage**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/f51ea3c9-d984-41f7-aac7-e6db512e62fc)
+<img width="1461" height="597" alt="image" src="https://github.com/user-attachments/assets/b97f7d55-b2b6-4f12-a12d-a1ec2aed688e" />
 
 2. **Manage Event Page**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/6c58f2c7-35e0-4cf6-af73-a3923a3a0ecf)
+
+<img width="902" height="301" alt="image" src="https://github.com/user-attachments/assets/e59e4b1b-b39f-40d2-9d28-b0c660b0b659" />
+
 
 3. **Create Event**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0c2c0b62-1498-4d03-8ad9-b26b0a48a868)
+<img width="1026" height="1013" alt="image" src="https://github.com/user-attachments/assets/76b9bb81-7a08-44d2-9fad-40c6d158177a" />
+
 
 4. **Edit Event**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/523c1f47-656e-4304-89a2-15f162bf3c04)
-
-5. **Event Report Page**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/b9c5c278-a955-4688-97ac-7dd4f9bd962a)
+  <img width="946" height="594" alt="image" src="https://github.com/user-attachments/assets/1f707972-698b-4bd5-9b31-6611865db1e9" />
 
 ---
 
 ### C. Admin
 1. **HomePage**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/0b415f4e-408c-4812-8c5b-abf608cbde03)
+<img width="1093" height="583" alt="image" src="https://github.com/user-attachments/assets/a456df79-97b0-4c5b-ba47-6360e7f2f276" />
+
 
 2. **Event Requests Page**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/39f47258-7310-40e1-8861-4c4c27809782)
+<img width="1079" height="564" alt="image" src="https://github.com/user-attachments/assets/e509a558-e2d8-4bbc-a53f-69c9f9366862" />
 
-3. **Manage Events Page**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/5aa235ef-b264-4258-b888-ea5a6d0305ab)
 
-4. **Manage Sponsorship**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/d99739f1-c80e-4a98-abba-e6fd5e27fd3d)
+3. **Manage Sponsorship Request**
+<img width="1121" height="497" alt="image" src="https://github.com/user-attachments/assets/f46f2789-7a08-4b82-bade-88d6222d4e29" />
 
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/01e41d4e-b205-4203-bf7e-a6fd3b0c01ae)
 
-5. **Manage Sponsorship Request**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/055fd207-3cd0-4062-b5d0-725ab895321e)
+5. **Manage Sponsorship**
+<img width="1077" height="577" alt="image" src="https://github.com/user-attachments/assets/fde18b48-cbdb-4c88-b905-69e0bd97d306" />
+
 
 6. **Manage Accounts Page**
-   ![image](https://github.com/M-Ibrahim5/Event-Management-System/assets/93575112/de06ade8-4b6d-4196-96ca-65f4b6c29878)
+<img width="1126" height="581" alt="image" src="https://github.com/user-attachments/assets/02890f83-58d8-4833-888e-cfd9613f5ecc" />
+
